@@ -9,9 +9,14 @@ After initialization, try waving various 13.56MHz RFID cards over it!
 import api
 import time
 import RPi.GPIO as GPIO
-
 from pn532 import *
-locationID = '605fb0b2b1dbbcf7c526a506'
+import sys
+
+if len(sys.argv)<2:
+    print('please specify locationID and run again')
+    exit()
+    
+locationID = sys.argv[1]
 
 if __name__ == '__main__':
     try:
