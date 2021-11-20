@@ -18,6 +18,9 @@ if len(sys.argv)<2:
     
 locationID = sys.argv[1]
 
+api.findLocationbyID(locationID)
+
+
 if __name__ == '__main__':
     try:
         #pn532 = PN532_SPI(debug=False, reset=20, cs=4)
@@ -39,11 +42,8 @@ if __name__ == '__main__':
             if uid is None:
                 continue
             print('Found card with UID: ', ('-'.join(str(x) for x in uid)))
-            print('Get request to server to find out what user has this ID')
             RFID = '-'.join(str(x) for x in uid)
-            user = api.findUserByRFID(RFID)
-            print('Post request to save the user appearance to database')
-            api.saveAppearance(user['_id'], locationID)
+            api.saveAppearance(locationID,RFID)
             time.sleep(0.5)
     except Exception as e:
         print(e)
