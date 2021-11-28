@@ -11,13 +11,16 @@ import time
 import RPi.GPIO as GPIO
 from pn532 import *
 import sys
+import configparser
 
-if len(sys.argv)<2:
-    print('please specify locationID and run again')
+Config = configparser.ConfigParser()
+Config.read('settings.ini',encoding = 'utf-8-sig')
+locationID = Config.get('Location', 'LocationID')
+
+if not locationID:
+    print('please specify locationID in the settings file and run again')
     exit()
     
-locationID = sys.argv[1]
-
 api.findLocationbyID(locationID)
 
 
